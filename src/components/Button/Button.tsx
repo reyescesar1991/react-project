@@ -6,6 +6,7 @@ interface Props {
     parentMethod: () => void
 }
 
+//El parentmethod funciona trabajando por referencia
 export const Button = ({label, parentMethod} : Props) => {
 
     return (
