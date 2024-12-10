@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import './App.css'
-import { Button } from './components'
 
 //Va fuera porque no es parte del componente, esta es una forma de estilar
 // const style = {
@@ -19,29 +18,77 @@ function App() {
   // 2 - cambio de estado
   // 3 - async
 
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("Cesar");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const countMore = () => {
 
-    setCount((count) => count + 1);
-    setCount((count) => count + 1);
-    setCount((count) => count + 1);
-    setCount((count) => count + 1);
+  const consoleLoader = useCallback((loadingValue: boolean) => {
+
+    setLoading(loadingValue);
+    console.info(loading);
+  }, [loading]);
+
+  const fetchData = useCallback(
+    async () => {
+      consoleLoader(true);
+      try {
+        const response = await fetch("https://api.example.com/data");
+        if (!response.ok) {
+  
+          throw new Error("Error al obtener los datos")
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+  
+      } catch (err) {
+        setError(err as string);
+        console.log(err);
+  
+      } finally {
+  
+        consoleLoader(false)
+      }
+    }
+  , [consoleLoader],)
+
+
+  // comunicarnos con un endpoint - entidad externa al componente
+  // operaciones async
+  // parametros de entrada
+
+  // sync con entidades externas
+  useEffect(() => {
+    //logica ? que logica ? cuando se ejecuta esta logica?
+
+    //1 - cuando se monta el componente
+    //2 - cada vez que se modifique uno de los valores del state
+
+    fetchData();
+    return () => {
+      //liberar memoria
+      //manejar el estado de la memoria
+    }
+  }, [fetchData])
+
+
+  if (loading) {
+
+    return <div>Cargando.....</div>
   }
 
-  const changeName = () => {
+  if (error) {
 
-    setName("CESAR");
+    return <div>Ups! hay un error: {error}</div>
   }
+
 
   return (
-    <>
-      <Button label={`Count is ${count}`} parentMethod={countMore}/>
-      <p>{name}</p>
-      <Button label={`Name is ${name}`} parentMethod={changeName}/>
-    </>
+    <div>
+      {JSON.stringify(data)}
+    </div>
   )
+
 }
 
 export default App
