@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 //Va fuera porque no es parte del componente, esta es una forma de estilar
@@ -22,36 +22,26 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("https://api.example.com/data");
+      if (!response.ok) {
 
-  const consoleLoader = useCallback((loadingValue: boolean) => {
-
-    setLoading(loadingValue);
-    console.info(loading);
-  }, [loading]);
-
-  const fetchData = useCallback(
-    async () => {
-      consoleLoader(true);
-      try {
-        const response = await fetch("https://api.example.com/data");
-        if (!response.ok) {
-  
-          throw new Error("Error al obtener los datos")
-        }
-        const jsonData = await response.json();
-        setData(jsonData);
-  
-      } catch (err) {
-        setError(err as string);
-        console.log(err);
-  
-      } finally {
-  
-        consoleLoader(false)
+        throw new Error("Error al obtener los datos")
       }
-    }
-  , [consoleLoader],)
+      const jsonData = await response.json();
+      setData(jsonData);
 
+    } catch (err) {
+      setError(err as string);
+      console.log(err);
+
+    } finally {
+
+      setLoading(false)
+    }
+  }
 
   // comunicarnos con un endpoint - entidad externa al componente
   // operaciones async
@@ -69,7 +59,7 @@ function App() {
       //liberar memoria
       //manejar el estado de la memoria
     }
-  }, [fetchData])
+  }, [])
 
 
   if (loading) {
