@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import './App.css'
+import { useFetch } from './hooks';
 
 //Va fuera porque no es parte del componente, esta es una forma de estilar
 // const style = {
@@ -11,6 +11,16 @@ import './App.css'
 
 //Se puede estilar usando className o la propiedad style
 //La forma correcta es usar el import del ./App.css
+
+const url = "https://api.example.com/data";
+
+interface Data {
+
+  name: string;
+  lastName: string;
+  age: number;
+}
+
 function App() {
 
   //Los componentes solo cambia por 3 cosas
@@ -18,48 +28,27 @@ function App() {
   // 2 - cambio de estado
   // 3 - async
 
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("https://api.example.com/data");
-      if (!response.ok) {
-
-        throw new Error("Error al obtener los datos")
-      }
-      const jsonData = await response.json();
-      setData(jsonData);
-
-    } catch (err) {
-      setError(err as string);
-      console.log(err);
-
-    } finally {
-
-      setLoading(false)
-    }
-  }
+  
 
   // comunicarnos con un endpoint - entidad externa al componente
   // operaciones async
   // parametros de entrada
 
   // sync con entidades externas
-  useEffect(() => {
-    //logica ? que logica ? cuando se ejecuta esta logica?
+  // useEffect(() => {
+  //   //logica ? que logica ? cuando se ejecuta esta logica?
 
-    //1 - cuando se monta el componente
-    //2 - cada vez que se modifique uno de los valores del state
+  //   //1 - cuando se monta el componente
+  //   //2 - cada vez que se modifique uno de los valores del state
 
-    fetchData();
-    return () => {
-      //liberar memoria
-      //manejar el estado de la memoria
-    }
-  }, [])
+  //   fetchData();
+  //   return () => {
+  //     //liberar memoria
+  //     //manejar el estado de la memoria
+  //   }
+  // }, [])
+
+  const {data, error, loading} = useFetch<Data>(url);
 
 
   if (loading) {
@@ -69,7 +58,7 @@ function App() {
 
   if (error) {
 
-    return <div>Ups! hay un error: {error}</div>
+    return <div>Ups! hay un error: {error.message}</div>
   }
 
 
