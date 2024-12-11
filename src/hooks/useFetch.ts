@@ -10,6 +10,10 @@ interface Params<T> {
     error: ErrorType;
 }
 
+// useFetch es un puntero -> key
+// -> hace referencia a un espacio de memoria
+// -> en ese espacio de memoria esta la funcion
+// es una referencia a ese espacio de memoria
 export const useFetch = <T> (url: string): Params<T> => {
 
     const [data, setData] = useState<Data<T>>(null);
