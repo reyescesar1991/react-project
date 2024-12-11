@@ -1,18 +1,27 @@
+import { ReactNode } from "react"
 import "./Button.css"
 
 interface Props {
 
-    label: string,
+    children: ReactNode,
     parentMethod: () => void
 }
 
+interface ChildrenProps {
+    children: ReactNode
+}
+
+export const ColorRed = ({ children } : ChildrenProps) => {
+    return (<div className="color-red">{children}</div>)
+}
+
 //El parentmethod funciona trabajando por referencia
-export const Button = ({label, parentMethod} : Props) => {
+export const Button = ({children, parentMethod} : Props) => {
 
     return (
         <div className="card">
             <button className='custom-button' onClick={ parentMethod }>
-                {label}
+                {children}
             </button>
         </div>)
 }

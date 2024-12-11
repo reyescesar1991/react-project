@@ -1,5 +1,6 @@
 import './App.css'
-import { useFetch } from './hooks';
+import { AppForm, Button, ColorRed } from './components'
+// import { useFetch } from './hooks';
 
 //Va fuera porque no es parte del componente, esta es una forma de estilar
 // const style = {
@@ -12,14 +13,14 @@ import { useFetch } from './hooks';
 //Se puede estilar usando className o la propiedad style
 //La forma correcta es usar el import del ./App.css
 
-const url = "https://api.example.com/data";
+// const url = "https://api.example.com/data";
 
-interface Data {
+// interface Data {
 
-  name: string;
-  lastName: string;
-  age: number;
-}
+//   name: string;
+//   lastName: string;
+//   age: number;
+// }
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
   // 2 - cambio de estado
   // 3 - async
 
-  
+
 
   // comunicarnos con un endpoint - entidad externa al componente
   // operaciones async
@@ -48,24 +49,44 @@ function App() {
   //   }
   // }, [])
 
-  const {data, error, loading} = useFetch<Data>(url);
+  // const {data, error, loading} = useFetch<Data>(url);
 
 
-  if (loading) {
+  // if (loading) {
 
-    return <div>Cargando.....</div>
+  //   return <div>Cargando.....</div>
+  // }
+
+  // if (error) {
+
+  //   return <div>Ups! hay un error: {error.message}</div>
+  // }
+
+
+  const handleClick = () => {
+
+    console.log("");
+
   }
 
-  if (error) {
-
-    return <div>Ups! hay un error: {error.message}</div>
+  const dimeHola = () => {
+    alert("hola !!");
   }
 
+  const submit = () => {
+    console.log("submitted");
+  }
 
   return (
-    <div>
-      {JSON.stringify(data)}
-    </div>
+    <>
+      <ColorRed><Button parentMethod={dimeHola}>My Label</Button></ColorRed>
+      <Button parentMethod={handleClick}>
+        Mi boton normal
+      </Button>
+      <AppForm>
+        <button type='submit' onClick={submit}></button>
+      </AppForm>
+    </>
   )
 
 }
