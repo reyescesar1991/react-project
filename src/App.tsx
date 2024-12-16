@@ -1,5 +1,5 @@
 import './App.css'
-import { AppForm, Button, ColorRed } from './components'
+import {  Button, ColorRed, ThemeProvider } from './components'
 // import { useFetch } from './hooks';
 
 //Va fuera porque no es parte del componente, esta es una forma de estilar
@@ -63,31 +63,29 @@ function App() {
   // }
 
 
-  const handleClick = () => {
+  // const handleClick = () => {
 
-    console.log("");
+  //   console.log("");
 
-  }
+  // }
 
-  const dimeHola = () => {
-    alert("hola !!");
-  }
+  // const dimeHola = () => {
+  //   alert("hola !!");
+  // }
 
-  const submit = () => {
-    console.log("submitted");
-  }
+  // const submit = () => {
+  //   console.log("submitted");
+  // }
 
   return (
-    <>
-      <ColorRed><Button parentMethod={dimeHola}>My Label</Button></ColorRed>
-      <Button parentMethod={handleClick}>
-        Mi boton normal
-      </Button>
-      <AppForm>
-        <button type='submit' onClick={submit}></button>
-      </AppForm>
-    </>
-  )
+    <ThemeProvider>
+        <ColorRed>
+            <Button>
+                Cambiar Tema
+            </Button>
+        </ColorRed>
+    </ThemeProvider>
+);
 
 }
 
