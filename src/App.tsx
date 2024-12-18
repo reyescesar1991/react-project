@@ -1,5 +1,6 @@
 import './App.css'
-import {  Button, ColorRed, ThemeProvider } from './components'
+// import {  Button, ColorRed, ThemeProvider } from './components';
+import { BookReader, FocusInput, PhoneBook, ShoppingCart } from './components';
 // import { useFetch } from './hooks';
 
 //Va fuera porque no es parte del componente, esta es una forma de estilar
@@ -78,13 +79,20 @@ function App() {
   // }
 
   return (
-    <ThemeProvider>
-        <ColorRed>
-            <Button>
-                Cambiar Tema
-            </Button>
-        </ColorRed>
-    </ThemeProvider>
+    // <ThemeProvider>
+    //     <ColorRed>
+    //         <Button>
+    //             Cambiar Tema
+    //         </Button>
+    //     </ColorRed>
+    // </ThemeProvider>
+    <>
+      <BookReader></BookReader>
+      <FocusInput></FocusInput>
+      <ShoppingCart></ ShoppingCart>
+      <PhoneBook></ PhoneBook>
+    </>
+    
 );
 
 }
