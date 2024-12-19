@@ -1,6 +1,8 @@
 import './App.css'
 // import {  Button, ColorRed, ThemeProvider } from './components';
-import { BookReader, FocusInput, PhoneBook, ShoppingCart } from './components';
+// import { BookReader, FocusInput, Modal, PhoneBook, ShoppingCart } from './components';
+import { Modal } from './components';
+import { useModalContext } from './components/Modal/context/ModalContext';
 // import { useFetch } from './hooks';
 
 //Va fuera porque no es parte del componente, esta es una forma de estilar
@@ -78,6 +80,13 @@ function App() {
   //   console.log("submitted");
   // }
 
+  const { setState } = useModalContext();
+
+  const openModal = () => {
+
+    setState(true);
+  }
+
   return (
     // <ThemeProvider>
     //     <ColorRed>
@@ -87,10 +96,15 @@ function App() {
     //     </ColorRed>
     // </ThemeProvider>
     <>
-      <BookReader></BookReader>
+      {/* <BookReader></BookReader>
       <FocusInput></FocusInput>
       <ShoppingCart></ ShoppingCart>
-      <PhoneBook></ PhoneBook>
+      <PhoneBook></ PhoneBook> */}
+      <Modal>
+        <h2>Hola EVZODA</h2>
+        <h3>Te quiero</h3>
+      </Modal>
+      <button onClick={openModal}>Abrete</button>
     </>
     
 );

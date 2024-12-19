@@ -4,3 +4,4 @@ export * from "./UseRef/BookReader";
 export * from "./UseRef/FocusInput";
 export * from "./UseMemo/ShoppingCart";
 export * from "./UseCallback/PhoneBook";
+export * from "./Modal/Modal"; 
