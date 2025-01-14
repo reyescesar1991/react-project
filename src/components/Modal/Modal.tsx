@@ -40,7 +40,7 @@ export const Modal = ({ children } : Props) => {
         return () => {
             document.removeEventListener(eventListener, handleEsc);
         }
-    }, [])
+    }, [setState, state])
 
     if(!state || !modalRoot){
         return null;
