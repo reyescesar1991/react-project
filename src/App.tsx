@@ -1,5 +1,8 @@
+// import { useEffect, useState } from 'react';
 import './App.css'
-import { PromiseError } from './components/ErrorBoundaryExamples';
+import { getCharacter } from './services/api.service';
+import { Character } from './models';
+import { useApi } from './hooks/useApi';
 // import {  Button, ColorRed, ThemeProvider } from './components';
 // import { BookReader, FocusInput, Modal, PhoneBook, ShoppingCart } from './components';
 // import { Modal } from './components';
@@ -88,6 +91,27 @@ function App() {
   //   setState(true);
   //   throw new Error("Se murio el tio de pampita");
   // }
+  // const [data, setData] = useState<Character>(emptyCharacter);
+  // const fetchMorty = async () => {
+
+  //   const result = await getCharacter(1);
+  //   setData(result.data);
+  // }
+
+  // useEffect(() => {
+  //   fetchMorty();
+  // }, []);
+
+  const {loading, error, data, fetch} = useApi<Character>(getCharacter(1), {autoFetch: true});
+
+  if(loading){
+
+    return (<p>Cargando</p>)
+  }
+
+  if(error){
+    return (<p>Ups {error.message}</p>)
+  }
 
   return (
     // <ThemeProvider>
@@ -110,7 +134,10 @@ function App() {
         <button onClick={openModal}>Abrete</button> */}
         {/* <UndefinedExample/> */}
         {/* <EffectExample></EffectExample> */}
-        <PromiseError></PromiseError>
+        <>
+        {JSON.stringify(data)}
+        <button onClick={fetch}></button>
+        </>
       </>
     </>
 
